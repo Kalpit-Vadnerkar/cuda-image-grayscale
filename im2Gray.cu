@@ -27,7 +27,7 @@ void im2Gray(uchar4 *d_in, unsigned char *d_grey, int numRows, int numCols){
   int y = threadIdx.y + blockIdx.y * blockDim.y;
   
 
-  if (x < numCols && y < numRows){
+  if (y < numCols && x < numRows){
     int grayOffset = y * numCols + x;
     unsigned char r = d_in[grayOffset].x; 
     unsigned char g = d_in[grayOffset].y;
