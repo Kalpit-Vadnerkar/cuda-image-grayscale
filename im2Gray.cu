@@ -1,6 +1,6 @@
 #include "im2Gray.h"
 
-#define BLOCK 32
+#define BLOCK 1
 
 
 
@@ -29,7 +29,6 @@ void im2Gray(uchar4 *d_in, unsigned char *d_grey, int numRows, int numCols){
 
   if (x < numCols && y < numRows){
     int grayOffset = y * numCols + x;
-    //int rgbOffset = grayOffset * 3;
     unsigned char r = d_in[grayOffset].x; 
     unsigned char g = d_in[grayOffset].y;
     unsigned char b = d_in[grayOffset].z;
@@ -44,7 +43,8 @@ void launch_im2gray(uchar4 *d_in, unsigned char* d_grey, size_t numRows, size_t 
     // configure launch params here 
     
     dim3 block(BLOCK, BLOCK, 1);
-    dim3 grid((numRows*numCols + 1)/BLOCK, 1, 1);
+    //dim3 grid(numRows/BLOCK, numCols/BLOCK, 1);
+    dim3 grid(1, 1, 1);
 
     im2Gray<<<grid,block>>>(d_in, d_grey, numRows, numCols);
     cudaDeviceSynchronize();
