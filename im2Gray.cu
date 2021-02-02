@@ -25,10 +25,10 @@ void im2Gray(uchar4 *d_in, unsigned char *d_grey, int numRows, int numCols){
 
   int x = threadIdx.x + blockIdx.x * blockDim.x;
   int y = threadIdx.y + blockIdx.y * blockDim.y;
-  int grayOffset = y * numCols + x;
+  
 
-  //if (x < numCols && y < numRows){
-  if (grayOffset < numCols * numRows){
+  if (x < numCols && y < numRows){
+    int grayOffset = y * numCols + x;
     int rgbOffset = grayOffset * 3;
     unsigned char r = d_in[rgbOffset].x; 
     unsigned char g = d_in[rgbOffset].y;
@@ -44,7 +44,7 @@ void launch_im2gray(uchar4 *d_in, unsigned char* d_grey, size_t numRows, size_t 
     // configure launch params here 
     
     dim3 block(BLOCK, BLOCK, 1);
-    dim3 grid((numRows*numCols + 1)/(BLOCK * BLOCK), 1, 1);
+    dim3 grid((numRows*numCols + 1)/BLOCK, 1, 1);
 
     im2Gray<<<grid,block>>>(d_in, d_grey, numRows, numCols);
     cudaDeviceSynchronize();
