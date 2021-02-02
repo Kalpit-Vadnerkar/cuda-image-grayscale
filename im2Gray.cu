@@ -32,9 +32,9 @@ void im2Gray(uchar4 *d_in, unsigned char *d_grey, int numRows, int numCols){
     //unsigned char r = d_in[rgbOffset]; 
     //unsigned char g = d_in[rgbOffset + 1];
     //unsigned char b = d_in[rgbOffset + 2];
-    char r = d_in[rgbOffset]; 
-    char g = d_in[rgbOffset + 1];
-    char b = d_in[rgbOffset + 2];
+    uchar4 r = d_in[rgbOffset]; 
+    uchar4 g = d_in[rgbOffset + 1];
+    uchar4 b = d_in[rgbOffset + 2];
     d_grey[grayOffset] = 0.299f*r + 0.587f*g + 0.114f*b;
   } 
 }
