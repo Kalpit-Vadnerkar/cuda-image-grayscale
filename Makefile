@@ -20,4 +20,4 @@ imgray.o: im2Gray.cu im2Gray.h utils.h
 	$(NVCC) -c im2Gray.cu $(NVCC_OPTS)
 
 clean:
-	rm *.o gray
+	rm *.o gray.jpg
