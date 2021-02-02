@@ -35,7 +35,7 @@ void im2Gray(uchar4 *d_in, unsigned char *d_grey, int numRows, int numCols){
     uchar4 r = d_in[rgbOffset]; 
     uchar4 g = d_in[rgbOffset + 1];
     uchar4 b = d_in[rgbOffset + 2];
-    d_grey[grayOffset] = 0.299f * make_float(r) + 0.587f * make_float(g) + 0.114f * make_float(b);
+    d_grey[grayOffset] = 0.299f4 * make_float4(r) + 0.587f4 * make_float4(g) + 0.114f4 * make_float4(b);
   } 
 }
 
