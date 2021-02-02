@@ -23,6 +23,17 @@ void im2Gray(uchar4 *d_in, unsigned char *d_grey, int numRows, int numCols){
    Your kernel here: Make sure to check for boundary conditions
   */
 
+  int x = threadIdx.x + blockIdx.x * blockDim.x;
+  int y = threadIdx.y + blockIdx.y * blockDim.y;
+
+  if (x < numCols && y < numRows){
+    int grayOffset= y*numCols + x;
+    int rgbOffset= grayOffset*3;
+    unsigned char r = d_in[rgbOffset]; 
+    unsigned char g = d_in[rgbOffset+ 1];
+    unsigned char b = d_in[rgbOffset+ 2];
+    d_grey[grayOffset] = 0.299f*r + 0.587f*g + 0.114f*b;
+  } 
 }
 
 
@@ -31,8 +42,8 @@ void im2Gray(uchar4 *d_in, unsigned char *d_grey, int numRows, int numCols){
 void launch_im2gray(uchar4 *d_in, unsigned char* d_grey, size_t numRows, size_t numCols){
     // configure launch params here 
     
-    dim3 block(1,1,1);
-    dim3 grid(1,1, 1);
+    dim3 block(256,1,1);
+    dim3 grid((numRows*numCols)/256,1,1);
 
     im2Gray<<<grid,block>>>(d_in, d_grey, numRows, numCols);
     cudaDeviceSynchronize();
