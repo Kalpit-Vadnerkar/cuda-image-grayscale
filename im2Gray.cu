@@ -1,6 +1,6 @@
 #include "im2Gray.h"
 
-#define BLOCK 16
+#define BLOCK 4
 
 
 
